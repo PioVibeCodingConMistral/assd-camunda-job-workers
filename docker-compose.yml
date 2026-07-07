@@ -17,7 +17,7 @@ services:
       - CAMUNDA_CLIENT_AUTH_ISSUER-URL=http://keycloak:18080/auth/realms/camunda-platform
       - CAMUNDA_CLIENT_AUTH_AUDIENCE=camunda-platform
       - CAMUNDA_CLIENT_AUTH_SCOPE=openid profile email
-      - CAMUNDA_CLIENT_GRPC-ADDRESS=orchestration:26500
+      - CAMUNDA_CLIENT_GRPC-ADDRESS=grpc://orchestration:26500
       - CAMUNDA_CLIENT_REST-ADDRESS=http://orchestration:8080
     ports:
       - "8081:8081"
