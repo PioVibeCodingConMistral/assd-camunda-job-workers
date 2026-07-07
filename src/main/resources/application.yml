@@ -10,8 +10,6 @@ camunda:
     mode: self-managed
     auth:
       method: oidc
-      username: demo
-      password: demo
       client-id: assd
       client-secret: BDMn8BRThR05Q3aB0vEbli195bCBFQss
       issuer-url: http://localhost:18080/auth/realms/camunda-platform
