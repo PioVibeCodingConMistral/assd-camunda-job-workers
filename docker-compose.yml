@@ -23,9 +23,6 @@ services:
       - "8081:8081"
     networks:
       - camunda-platform
-    depends_on:
-      - keycloak
-      - orchestration
     restart: unless-stopped
 
 networks:
