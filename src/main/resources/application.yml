@@ -1,19 +1,28 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   application:
-    name: camunda-job-workers
+    name: ASSD
 
 camunda:
   client:
-    broker:
-      gateway-address: localhost:26500
-    security:
-      plaintext: true
+    mode: self-managed
+    auth:
+      method: oidc
+      username: demo
+      password: demo
+      client-id: assd
+      client-secret: BDMn8BRThR05Q3aB0vEbli195bCBFQss
+      issuer-url: http://localhost:18080/auth/realms/camunda-platform
+      audience: orchestration
+      scope: orchestration
+    grpc-address: http://localhost:26500
+    rest-address: http://localhost:8080
     worker:
-      default-name: capability-worker
+      default-name: ${spring.application.name}-worker
       auto-startup: true
+      default-type: spring-boot
 
 logging:
   level:
