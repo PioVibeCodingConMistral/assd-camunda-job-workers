@@ -15,8 +15,11 @@ camunda:
       issuer-url: http://host.docker.internal:18080/auth/realms/camunda-platform
       audience: camunda-platform
       scope: openid profile email
-    grpc-address: grpc://host.docker.internal:26500
+    # For Camunda Platform (not standalone Zeebe), use REST only
     rest-address: http://host.docker.internal:8080
+    # Disable gRPC - not needed for full platform
+    grpc:
+      enabled: false
     worker:
       default-name: ${spring.application.name}-worker
       auto-startup: true

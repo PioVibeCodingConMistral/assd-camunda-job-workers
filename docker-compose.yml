@@ -9,7 +9,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - SERVER_PORT=8081
-      # Camunda client configuration - must match orchestration's expected issuer
+      # Camunda Platform REST-only configuration
       - CAMUNDA_CLIENT_MODE=self-managed
       - CAMUNDA_CLIENT_AUTH_METHOD=oidc
       - CAMUNDA_CLIENT_AUTH_CLIENT-ID=assd
@@ -17,8 +17,8 @@ services:
       - CAMUNDA_CLIENT_AUTH_ISSUER-URL=http://host.docker.internal:18080/auth/realms/camunda-platform
       - CAMUNDA_CLIENT_AUTH_AUDIENCE=camunda-platform
       - CAMUNDA_CLIENT_AUTH_SCOPE=openid profile email
-      - CAMUNDA_CLIENT_GRPC-ADDRESS=grpc://host.docker.internal:26500
       - CAMUNDA_CLIENT_REST-ADDRESS=http://host.docker.internal:8080
+      - CAMUNDA_CLIENT_GRPC_ENABLED=false
     ports:
       - "8081:8081"
     networks:
