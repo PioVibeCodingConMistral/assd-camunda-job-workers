@@ -18,8 +18,6 @@ class CapabilityPopWorkerTest {
 
     @Test
     void testPopCapabilityProvider_FirstProvider() {
-        Map<String, Object> variables = new HashMap<>();
-        
         Map<String, Object> provider1 = new HashMap<>();
         provider1.put("id", "provider-1");
         provider1.put("name", "Provider 1");
@@ -29,23 +27,15 @@ class CapabilityPopWorkerTest {
         provider2.put("name", "Provider 2");
         
         List<Map<String, Object>> providerList = List.of(provider1, provider2);
-        variables.put("providerList", providerList);
-        variables.put("counter", 0);
         
-        Map<String, Object> result = worker.popCapabilityProvider(variables);
+        Map<String, Object> result = worker.popCapabilityProvider("fire", providerList, 0);
         
         assertNotNull(result);
-        assertTrue(result.containsKey("provider"));
-        
-        Map<String, Object> selectedProvider = (Map<String, Object>) result.get("provider");
-        assertNotNull(selectedProvider);
-        assertEquals("provider-1", selectedProvider.get("id"));
+        assertEquals("provider-1", result.get("id"));
     }
 
     @Test
     void testPopCapabilityProvider_SecondProvider() {
-        Map<String, Object> variables = new HashMap<>();
-        
         Map<String, Object> provider1 = new HashMap<>();
         provider1.put("id", "provider-1");
         
@@ -53,43 +43,31 @@ class CapabilityPopWorkerTest {
         provider2.put("id", "provider-2");
         
         List<Map<String, Object>> providerList = List.of(provider1, provider2);
-        variables.put("providerList", providerList);
-        variables.put("counter", 1);
         
-        Map<String, Object> result = worker.popCapabilityProvider(variables);
+        Map<String, Object> result = worker.popCapabilityProvider("fire", providerList, 1);
         
-        Map<String, Object> selectedProvider = (Map<String, Object>) result.get("provider");
-        assertNotNull(selectedProvider);
-        assertEquals("provider-2", selectedProvider.get("id"));
+        assertNotNull(result);
+        assertEquals("provider-2", result.get("id"));
     }
 
     @Test
     void testPopCapabilityProvider_OutOfBounds() {
-        Map<String, Object> variables = new HashMap<>();
-        
         Map<String, Object> provider1 = new HashMap<>();
         provider1.put("id", "provider-1");
         
         List<Map<String, Object>> providerList = List.of(provider1);
-        variables.put("providerList", providerList);
-        variables.put("counter", 5);
         
-        Map<String, Object> result = worker.popCapabilityProvider(variables);
+        Map<String, Object> result = worker.popCapabilityProvider("fire", providerList, 5);
         
-        assertNotNull(result);
-        assertTrue(result.containsKey("provider"));
-        assertNull(result.get("provider"));
+        assertNull(result);
     }
 
     @Test
     void testPopCapabilityProvider_EmptyList() {
-        Map<String, Object> variables = new HashMap<>();
-        variables.put("providerList", List.of());
-        variables.put("counter", 0);
+        List<Map<String, Object>> providerList = List.of();
         
-        Map<String, Object> result = worker.popCapabilityProvider(variables);
+        Map<String, Object> result = worker.popCapabilityProvider("fire", providerList, 0);
         
-        assertNotNull(result);
-        assertNull(result.get("provider"));
+        assertNull(result);
     }
 }
