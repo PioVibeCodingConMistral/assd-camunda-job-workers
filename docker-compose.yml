@@ -9,20 +9,22 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - SERVER_PORT=8081
-      # Camunda client configuration using container names from docker-compose-full.yaml
+      # Camunda client configuration - must match orchestration's expected issuer
       - CAMUNDA_CLIENT_MODE=self-managed
       - CAMUNDA_CLIENT_AUTH_METHOD=oidc
       - CAMUNDA_CLIENT_AUTH_CLIENT-ID=assd
       - CAMUNDA_CLIENT_AUTH_CLIENT-SECRET=BDMn8BRThR05Q3aB0vEbli195bCBFQss
-      - CAMUNDA_CLIENT_AUTH_ISSUER-URL=http://keycloak:18080/auth/realms/camunda-platform
+      - CAMUNDA_CLIENT_AUTH_ISSUER-URL=http://host.docker.internal:18080/auth/realms/camunda-platform
       - CAMUNDA_CLIENT_AUTH_AUDIENCE=camunda-platform
       - CAMUNDA_CLIENT_AUTH_SCOPE=openid profile email
-      - CAMUNDA_CLIENT_GRPC-ADDRESS=grpc://orchestration:26500
-      - CAMUNDA_CLIENT_REST-ADDRESS=http://orchestration:8080
+      - CAMUNDA_CLIENT_GRPC-ADDRESS=grpc://host.docker.internal:26500
+      - CAMUNDA_CLIENT_REST-ADDRESS=http://host.docker.internal:8080
     ports:
       - "8081:8081"
     networks:
       - camunda-platform
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped
 
 networks:
