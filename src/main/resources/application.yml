@@ -12,11 +12,11 @@ camunda:
       method: oidc
       client-id: assd
       client-secret: BDMn8BRThR05Q3aB0vEbli195bCBFQss
-      issuer-url: http://host.docker.internal:18080/auth/realms/camunda-platform
+      issuer-url: http://keycloak:18080/auth/realms/camunda-platform
       audience: camunda-platform
       scope: openid profile email
-    grpc-address: http://host.docker.internal:26500
-    rest-address: http://host.docker.internal:8080
+    grpc-address: zeebe:26500
+    rest-address: http://camunda:8080
     worker:
       default-name: ${spring.application.name}-worker
       auto-startup: true
