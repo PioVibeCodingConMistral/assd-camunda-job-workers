@@ -13,8 +13,8 @@ camunda:
       client-id: assd
       client-secret: BDMn8BRThR05Q3aB0vEbli195bCBFQss
       issuer-url: http://localhost:18080/auth/realms/camunda-platform
-      audience: assd
-      scope: assd
+      audience: camunda-platform
+      scope: openid profile email
     grpc-address: http://localhost:26500
     rest-address: http://localhost:8080
     worker:
