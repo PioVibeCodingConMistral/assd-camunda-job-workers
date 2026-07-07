@@ -8,27 +8,27 @@ services:
     container_name: assd-job-workers
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+      - SERVER_PORT=8081
+      # Camunda client configuration using container names from docker-compose-full.yaml
+      - CAMUNDA_CLIENT_MODE=self-managed
       - CAMUNDA_CLIENT_AUTH_METHOD=oidc
       - CAMUNDA_CLIENT_AUTH_CLIENT-ID=assd
       - CAMUNDA_CLIENT_AUTH_CLIENT-SECRET=BDMn8BRThR05Q3aB0vEbli195bCBFQss
       - CAMUNDA_CLIENT_AUTH_ISSUER-URL=http://keycloak:18080/auth/realms/camunda-platform
       - CAMUNDA_CLIENT_AUTH_AUDIENCE=camunda-platform
       - CAMUNDA_CLIENT_AUTH_SCOPE=openid profile email
-      - CAMUNDA_CLIENT_GRPC-ADDRESS=zeebe:26500
-      - CAMUNDA_CLIENT_REST-ADDRESS=http://camunda:8080
-      - CAMUNDA_CLIENT_MODE=self-managed
-      - SERVER_PORT=8081
+      - CAMUNDA_CLIENT_GRPC-ADDRESS=orchestration:26500
+      - CAMUNDA_CLIENT_REST-ADDRESS=http://orchestration:8080
     ports:
       - "8081:8081"
     networks:
       - camunda-platform
     depends_on:
       - keycloak
-      - zeebe
-      - camunda
+      - orchestration
     restart: unless-stopped
 
 networks:
   camunda-platform:
     external: true
-    name: camunda-platform_default
+    name: camunda-platform
